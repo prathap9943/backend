@@ -5,13 +5,12 @@ exports.register = async(body) =>{
         return [401,'Please provide all details',{}]
     }
     const user = await UserModel.getUserByEmail(body.email)
-    console.log(user)
     if(user){
         return [401, 'User already exists!', {} ]
     }
     body.password = await bcrypt.hash(body.password,10);
     UserModel.create(body);
-    return [200,'User created Successfully',{}];
+    return [200,'User created successfully please login',{}];
 }
 
 exports.login = async(body) => {
@@ -30,6 +29,6 @@ exports.login = async(body) => {
         return [401, 'Incorrect password', {}]
     }
     delete user.password;
-    return [200, "Login Successfully", user]
+    return [200, "Login Success", user]
 
 }
